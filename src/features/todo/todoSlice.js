@@ -15,20 +15,24 @@ export const fetchTodos = createAsyncThunk("todo/fetchTodos", async () => {
 export const postNewTask = createAsyncThunk(
   "todo/postNewTask",
   async (newTask) => {
-    console.log("the add function: ", newTask);
-    const response = await axios.post("/todo/create", newTask);
+    const response = await axios.post("todo/create", newTask);
     return response.data;
   }
 );
 
+export const deleteTask = createAsyncThunk("todo/deleteTask", async (obj) => {
+  const response = await axios.post("todo/delete", obj, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+});
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducer: {
-    addNewTask(state, action) {
-      state.todoList.push(action.payload);
-    },
-  },
+  reducer: {},
   extraReducers(builder) {
     builder
       .addCase(fetchTodos.pending, (state, action) => {
@@ -45,6 +49,11 @@ export const todoSlice = createSlice({
       })
       .addCase(postNewTask.fulfilled, (state, action) => {
         state.todoList.push(action.payload);
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.todoList = state.todoList.filter(
+          (todo) => todo.id !== action.payload.id
+        );
       });
   },
 });
