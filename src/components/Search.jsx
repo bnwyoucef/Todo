@@ -49,7 +49,7 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
 
-const SearchPart = () => {
+const SearchPart = ({ searchValue,setSearchValue }) => {
   return (
     <div className="search-container">
         <Search>
@@ -59,6 +59,8 @@ const SearchPart = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
             />
         </Search>
         <Button variant="contained" style={{marginRight:'10px',backgroundColor:'#FF869E',color:'#A10035'}}>Add Task</Button>

@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchTodos = createAsyncThunk("todo/fetchTodos", async () => {
   const response = await axios.get("/todo/all");
-  console.log(response.data);
   return response.data;
 });
 

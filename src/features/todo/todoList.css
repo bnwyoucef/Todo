@@ -2,4 +2,10 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 40vh;
+    position: relative;
+}
+.card-container h3 {
+    position: absolute;
+    top: 50%;
 }
