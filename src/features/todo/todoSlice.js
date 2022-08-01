@@ -12,10 +12,23 @@ export const fetchTodos = createAsyncThunk("todo/fetchTodos", async () => {
   return response.data;
 });
 
+export const postNewTask = createAsyncThunk(
+  "todo/postNewTask",
+  async (newTask) => {
+    console.log("the add function: ", newTask);
+    const response = await axios.post("/todo/create", newTask);
+    return response.data;
+  }
+);
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducer: {},
+  reducer: {
+    addNewTask(state, action) {
+      state.todoList.push(action.payload);
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchTodos.pending, (state, action) => {
@@ -29,8 +42,13 @@ export const todoSlice = createSlice({
       .addCase(fetchTodos.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(postNewTask.fulfilled, (state, action) => {
+        state.todoList.push(action.payload);
       });
   },
 });
+
+export const { addNewTask } = todoSlice.actions;
 
 export default todoSlice.reducer;

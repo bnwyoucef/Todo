@@ -4,6 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import AddTaskForm from './AddTaskForm';
 
 import '../styles/search.css';
 
@@ -63,7 +64,8 @@ const SearchPart = ({ searchValue,setSearchValue }) => {
               onChange={e => setSearchValue(e.target.value)}
             />
         </Search>
-        <Button variant="contained" style={{marginRight:'10px',backgroundColor:'#FF869E',color:'#A10035'}}>Add Task</Button>
+        {/* <Button variant="contained" style={{marginRight:'10px',backgroundColor:'#FF869E',color:'#A10035'}}>Add Task</Button> */}
+        <AddTaskForm />
     </div>
   )
 }
