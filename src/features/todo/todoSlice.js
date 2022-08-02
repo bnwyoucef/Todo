@@ -29,6 +29,19 @@ export const deleteTask = createAsyncThunk("todo/deleteTask", async (obj) => {
   return response.data;
 });
 
+export const clearTodo = createAsyncThunk("todo/clearTodo", async () => {
+  const response = await axios.post("todo/clear");
+  return response.data;
+});
+
+export const taskDoneUpdate = createAsyncThunk(
+  "todo/taskDoneUpdate",
+  async (todo) => {
+    const response = await axios.patch("todo/update", todo);
+    return response.data;
+  }
+);
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
@@ -53,6 +66,14 @@ export const todoSlice = createSlice({
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.todoList = state.todoList.filter(
           (todo) => todo.id !== action.payload.id
+        );
+      })
+      .addCase(clearTodo.fulfilled, (state, action) => {
+        state.todoList = [];
+      })
+      .addCase(taskDoneUpdate.fulfilled, (state, action) => {
+        state.todoList = state.todoList.map((todo) =>
+          todo.id === action.payload.id ? action.payload : todo
         );
       });
   },

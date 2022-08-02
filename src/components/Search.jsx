@@ -64,7 +64,6 @@ const SearchPart = ({ searchValue,setSearchValue }) => {
               onChange={e => setSearchValue(e.target.value)}
             />
         </Search>
-        {/* <Button variant="contained" style={{marginRight:'10px',backgroundColor:'#FF869E',color:'#A10035'}}>Add Task</Button> */}
         <AddTaskForm />
     </div>
   )
